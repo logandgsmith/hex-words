@@ -142,7 +142,7 @@ fn main() -> io::Result<()> {
     println!("== STATS ==");
     println!("Total Words in Wordlist: {}", total_words);
     println!("Valid Words: {}", total_valid);
-    println!("Percentage of wordlist expressable as Hexadecimals: ~{:.4}%", total_valid as f64 / total_words as f64);
+    println!("Percentage of wordlist expressable as Hexadecimals: ~{:.4}%", total_valid as f64 / total_words as f64 * 100.0);
     println!();
 
     Ok(()) // Success
