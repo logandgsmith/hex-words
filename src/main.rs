@@ -3,7 +3,7 @@
 // I initially wrote this since I met this guy who went by 0xb7ade (hexblade) and wanted to see what
 // other names you could make like this
 
-use std::collections::{HashMap, HashSet};
+use std::collections::{HashSet};
 use std::fs::File;
 use std::io::{self, BufRead, Write};
 use std::path::{PathBuf, Path};
@@ -81,26 +81,25 @@ fn find_words(wordlist: Vec<String>, translate: bool) -> io::Result<Vec<String>>
 
 // Translates a word into hexadecimal numbers. Returns '?' if can't translate a char
 fn translate_to_hex(word: &str) -> String {
-    let letter_to_hex = HashMap::from([
-        ('a', 'A'),
-        ('b', 'B'),
-        ('c', 'C'),
-        ('d', 'D'),
-        ('e', 'E'),
-        ('f', 'F'),
-        ('g', '6'),
-        ('i', '1'),
-        ('l', '1'),
-        ('o', '0'),
-        ('s', '5'),
-        ('t', '7'),
-        ('z', '2')
-    ]);
-
     // Convert the word by letter
     let hex_string: String = word
         .chars()
-        .map(|c| letter_to_hex.get(&c).unwrap_or(&'?'))
+        .map(|c| match c {
+            'a' => 'A',
+            'b' => 'B',
+            'c' => 'C',
+            'd' => 'D',
+            'e' => 'E',
+            'f' => 'F',
+            'g' => '6',
+            'i' => '1',
+            'l' => '1',
+            'o' => '0',
+            's' => '5',
+            't' => '7',
+            'z' => '2',
+            _ => '?'
+        })
         .collect();
 
     format!("0x{}", hex_string)
